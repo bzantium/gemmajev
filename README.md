@@ -41,9 +41,8 @@ viewers.
 [![Gemma navigating three mazes](demos/media/three-mazes.jpg)](demos/media/three-mazes.mp4)
 
 Gemma chooses a direction at junctions using the local view, goal offset and visit
-history. Code handles walls, explored branches and backtracking. **These three
-maps are included in training**: 441 of the 1,322 Maze movement examples come from
-them. See the [data recipe and separate-map results](docs/navigation.md).
+history. Code handles walls, explored branches and backtracking.
+See [how Maze navigation works](docs/navigation.md).
 
 Watch all three recordings locally with just Python:
 
@@ -120,13 +119,6 @@ Start with [setup and the base checkpoint](docs/training.md), then follow the
 [game guide](docs/demos.md) covers running and recording both interfaces. Training
 uses one GPU; checkpoints, data and caches stay inside this repository.
 
-| Check | Result | Scope |
-| --- | --- | --- |
-| Maze next direction | 70.4% accuracy | 196 validation questions on four separate maps |
-| ViZDoom action | 90.0% accuracy | 201 validation questions |
-| MLX FP32 inference | 35.1 ms | One movement question, ten warm calls on an M2 Max |
-
-Question accuracy and inference timing do not establish navigation quality.
 See [gameplay results and measurement details](docs/results.md).
 
 ## Code

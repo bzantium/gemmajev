@@ -10,8 +10,13 @@
     "playback": "Recorded and accelerated gameplay, not live inference"
   },
   "three-mazes": {
-    "checkpoint": "maze-expanded",
-    "sha256": "fa1d4c617bd6224d463fbff7ede9bf63307ac6aa5b581c6810696dd33f4de5d4",
-    "playback": "Recorded and accelerated gameplay, not live inference"
+    "checkpoint": "navigation-rehearsal",
+    "sha256": "dd765f713a045dfd4d6e8e90576d37a62f4fb2e48524afd685d4a20beb341c7d",
+    "playback": "Recorded and accelerated gameplay, not live inference",
+    "duration_seconds": 14.36,
+    "scope": "All three demonstration maps included in movement training",
+    "training_metadata_sha256": "76a58fd347d1446e9d570449ac152688374a7119e081751db6da3eed5db9ae31",
+    "rollout_summary_sha256": "e8379bd88e2ddf6f8243da5e6f315933f1f2cb6d7066bf342ce73ae411329ac4",
+    "policy": "Model ranks available unvisited legal passages; DFS stack backtracks; forced moves skip inference"
   }
 }

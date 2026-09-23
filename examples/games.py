@@ -34,6 +34,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run", required=True)
     parser.add_argument("--output", required=True)
+    parser.add_argument("--basic-only", action="store_true", help="Check only the ViZDoom demo")
     args = parser.parse_args()
     output = project_path(args.output)
     output.mkdir(parents=True, exist_ok=False)
@@ -111,6 +112,18 @@ def main():
         print(json.dumps(dict(basic=info["episode_metrics"])), flush=True)
     finally:
         env.close()
+    if args.basic_only:
+        from replay_unified_episodes import replay_episode
+
+        audit = replay_episode(episode)
+        write(output / "replay.json", audit)
+        if not audit["passed"]:
+            raise ValueError("ViZDoom trajectory did not replay exactly")
+        write(
+            output / "result.json",
+            dict(basic_success=episode["success"], actual_gameplay=True, replay_verified=True),
+        )
+        return
     case_path = public / "demonstrations/configs/hard_navigation_demo_v1_cases.jsonl"
     cases = [json.loads(line) for line in case_path.read_text().splitlines()]
     case = next(row for row in cases if row["id"] == "maze:ood:50:24310922")

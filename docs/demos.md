@@ -39,7 +39,7 @@ The seeds were fixed before inference, without selecting successful outcomes:
 .venv/bin/python -m http.server 8796 --directory demo-output-mazes
 ```
 
-For Apple GPU inference, export the checkpoint and use `rollout_mlx.py` as
+For Apple GPU inference, export the checkpoint and use `examples/maze_mlx.py` as
 described in [Mac inference](mlx.md). Its output works with the same replay
 builder. Prepare the three cases before running it.
 

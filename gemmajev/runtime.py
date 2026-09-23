@@ -28,12 +28,22 @@ def project_path(path):
     return path
 
 
-def load_model(seed=17, model_name="gemma-3-270m", input_format="plain"):
+def load_model(seed=17, model_name="gemma-3-270m", input_format="plain", *, for_restore=False):
+    """Load pretrained weights, or initialize a tree for immediate checkpoint restoration.
+
+    Continuation and inference restore every trained parameter from Orbax, so
+    they need the verified tokenizer/configuration but not a second base-weight copy.
+    A for_restore model must be restored before it is used for scoring or training.
+    """
     spec = MODELS[model_name]
     folder = ROOT / "artifacts" / model_name
     manifest = json.loads((folder / "manifest.json").read_text())
     assert manifest["model_id"] == spec["model_id"] and manifest["revision"] == spec["revision"]
     for name, expected in manifest["sha256"].items():
+        if for_restore and (
+            name.endswith(".safetensors") or name.endswith(".safetensors.index.json")
+        ):
+            continue
         with (folder / name).open("rb") as handle:
             assert hashlib.file_digest(handle, "sha256").hexdigest() == expected, name
     mesh = jax.make_mesh((1, 1), ("fsdp", "tp"), axis_types=(jax.sharding.AxisType.Auto,) * 2)
@@ -41,9 +51,12 @@ def load_model(seed=17, model_name="gemma-3-270m", input_format="plain"):
         cfg = dataclasses.replace(
             getattr(gemma.ModelConfig, spec["config"])(), param_dtype=jnp.float32
         )
-        backbone = params_safetensors.create_model_from_safe_tensors(
-            str(folder), cfg, mesh, dtype=jnp.float32
-        )
+        if for_restore:
+            backbone = gemma.Gemma3(cfg, rngs=nnx.Rngs(seed))
+        else:
+            backbone = params_safetensors.create_model_from_safe_tensors(
+                str(folder), cfg, mesh, dtype=jnp.float32
+            )
         model = DecisionModel(backbone, seed=seed)
     tokenizer = AutoTokenizer.from_pretrained(folder, local_files_only=True)
     if input_format == "chat":

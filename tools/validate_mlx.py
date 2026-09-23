@@ -69,20 +69,22 @@ def main():
     from gemmajev.interface import decision_row
 
     questions = {}
+    state = fixtures[0]["rows"][0]["state"]
     for row in fixtures[0]["rows"]:
+        if row["state"] != state:
+            continue
         choices = [json.loads(c) for c in row["candidates"]]
         questions[row["question_id"]] = dict(
-            type="boolean",
+            type="boolean" if {c["value"] for c in choices} == {"false", "true"} else "choice",
             instructions=row["question"],
             criteria={c["value"]: c["description"] for c in choices},
         )
     request = dict(
         states=[dict(id="latency", state=fixtures[0]["rows"][0]["state"], questions=questions)]
     )
-    assert len(questions) == 4
-    for row, question in zip(fixtures[0]["rows"], questions.values(), strict=True):
-        converted, _ = decision_row(request["states"][0]["state"], question)
-        assert converted["state"] == row["state"]
+    for question in questions.values():
+        converted, _ = decision_row(state, question)
+        assert converted["state"] == state
     engine.predict(request)
     latencies = []
     for _ in range(10):
@@ -107,7 +109,8 @@ def main():
         mean_seconds=float(np.mean(latencies)),
         median_seconds=float(np.median(latencies)),
         warm_seconds=latencies,
-        scope="40 frozen questions, one Maze observation timed ten times. Full rollouts evaluated separately.",
+        questions_per_timed_observation=len(questions),
+        scope="Frozen reference questions; one observation timed ten times. Full rollouts evaluated separately.",
         export_manifest_sha256=hashlib.sha256(
             (Path(args.model) / "manifest.json").read_bytes()
         ).hexdigest(),

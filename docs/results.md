@@ -45,13 +45,15 @@ moves into walls.
 
 The sequential MLX FP32 runs took **53.2 seconds**, excluding loading. Different
 floating-point arithmetic can change trajectories; these are runtime differences,
-not training gains. The bundled 14.28-second clip replays the original JAX GPU
-runs with accelerated playback.
+not training gains. These measurements describe the original local-safety model.
+The bundled three-maze video now uses the movement-with-memory continuation,
+which finishes in 226 / 131 / 200 attempts. See the [matched comparison](navigation.md#results).
 
 Navigation combines model probabilities with shared exploration code and remembered
 paths. Completing these maps does not demonstrate optimal routing, broad OOD
 generalization or superiority over other models. The two comparison recordings
 in the README use the initial checkpoint, while the three-maze recording uses
-the continued checkpoint.
+the movement-trained checkpoint. Its three demonstration maps are included in
+training, and its new controller masks blocked moves and handles backtracking.
 
 [Full timing summaries](results/) · [MLX reproduction](mlx.md)

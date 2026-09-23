@@ -92,7 +92,7 @@ def main():
     print(json.dumps(dict(exported_parameters=expected, backbone_tensors=len(weights))), flush=True)
 
     # Frozen, small cross-runtime check. Actual rollouts are evaluated separately.
-    source = root / "data/gemmajev-v1/validation.jsonl"
+    source = root / "data" / engine.config["dataset"] / "validation.jsonl"
     rows = [json.loads(line) for line in source.read_text().splitlines()]
     selected = [r for r in rows if r["task"] == "maze"][:32] + [
         r for r in rows if r["task"] == "basic"

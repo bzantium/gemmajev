@@ -20,6 +20,11 @@ def main():
     if not summary.is_relative_to(root):
         raise ValueError("Keep source evidence inside the project")
     evidence = json.loads(summary.read_text())
+    if isinstance(evidence, dict) and "cases" in evidence:
+        evidence = [
+            {**row, "status": "goal" if row["goal"] else "horizon_exhausted"}
+            for row in evidence["cases"]
+        ]
     if len(evidence) != 3 or any(
         r["status"] not in ("goal", "horizon_exhausted") for r in evidence
     ):

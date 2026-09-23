@@ -66,6 +66,7 @@ def main():
         ROOT / "requirements/cuda.lock.txt",
         ROOT / "artifacts" / cfg["model_name"] / "manifest.json",
     ]
+    sources.extend(ROOT / name for name in cfg.get("extra_sources", []))
     if cfg.get("maze_replay_cache"):
         cache_run = project_path(cfg["maze_replay_cache"])
         sources.extend([cache_run / "metadata.json", cache_run / "parent-training-margins.npy"])
@@ -89,7 +90,9 @@ def main():
         dest.write_bytes(content)
     (output / "metadata.json").write_text(json.dumps(metadata, indent=2) + "\n")
     print("Loading Gemma for Basic and Maze", flush=True)
-    model, tokenizer, mesh = load_model(cfg["seed"], cfg["model_name"], "chat")
+    model, tokenizer, mesh = load_model(
+        cfg["seed"], cfg["model_name"], "chat", for_restore=bool(cfg.get("initial_run"))
+    )
     if cfg.get("initial_run"):
         parent = project_path(cfg["initial_run"])
         parent_result = json.loads((parent / "result.json").read_text())
@@ -165,6 +168,27 @@ def main():
         probes[task] = pool[:64]
         per_task = task_batches[task]
         if not per_task:
+            continue
+        if task == "maze" and cfg.get("maze_demo_per_batch"):
+            demo_count = cfg["maze_demo_per_batch"]
+            assert 0 < demo_count < per_task
+            for is_demo, count in ((True, demo_count), (False, per_task - demo_count)):
+                subset = np.array(
+                    [
+                        i
+                        for i in pool
+                        if (rows["train"][i].get("training_scope") == "demo_fit") == is_demo
+                    ]
+                )
+                assert len(subset)
+                needed = cfg["steps"] * count
+                order = np.concatenate(
+                    [
+                        rng.permutation(subset)
+                        for _ in range((needed + len(subset) - 1) // len(subset))
+                    ]
+                )[:needed]
+                indices.append(order.reshape(cfg["steps"], count))
             continue
         if task == "maze" and priority_schedule is not None:
             indices.append(priority_schedule)

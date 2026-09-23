@@ -23,7 +23,11 @@ The three panels replay Jev, NanoJev and our trained Gemma on the same scenario.
 
 Gemma sees a **5×5 local window** and estimates whether each adjacent cell is
 open. The shared controller explores and remembers paths; the full map is for
-viewers. [Three more mazes with the continued model →](demos/media/three-mazes.mp4)
+viewers.
+
+[Three more mazes with movement training and visit memory →](demos/media/three-mazes.mp4)
+This newer demo asks Gemma to choose a direction at junctions. Its three maps
+are included in training; [separate-map results](docs/navigation.md#results) are reported too.
 
 Watch all three recordings locally with just Python:
 
@@ -33,7 +37,7 @@ python3 -m http.server 8000 --directory demos
 
 Open **http://localhost:8000**. No model download or GPU needed for playback.
 The two comparison clips use the initial checkpoint; the three-maze clip uses
-the continued checkpoint. Videos are accelerated recordings, not live inference.
+the movement-trained checkpoint. Videos are accelerated recordings, not live inference.
 
 ## How it works
 
@@ -67,10 +71,14 @@ Start with [setup and training](docs/training.md), then
 examples, and trains Gemma on one GPU. Checkpoints, data and caches stay inside
 this repository.
 
-The continued model reached **80.6% Maze** and **88.1% ViZDoom** validation question
+The local-safety model reached **80.6% Maze** and **88.1% ViZDoom** validation question
 accuracy. On an M2 Max, MLX FP32 took **54.4 ms** per local observation and completed
 all three fixed mazes. See [measurements and limitations](docs/results.md) for
 sample sizes, controller behavior and timing details.
+
+An optional [movement-with-memory recipe](docs/navigation.md) trains Gemma to
+choose a direction at Maze junctions and keeps ViZDoom examples in the training
+mix. Its fitted demonstration maps and separate test maps are reported explicitly.
 
 ## Code
 

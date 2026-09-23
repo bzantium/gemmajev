@@ -1,0 +1,103 @@
+{
+  "status": "matched",
+  "same_cases_controller_and_limit": true,
+  "reference_run": "runs/maze-expanded",
+  "candidate_run": "runs/navigation-rehearsal",
+  "all_candidates_finish": true,
+  "all_cases_use_fewer_attempts": true,
+  "attempts": {
+    "before": 3341,
+    "after": 557,
+    "reduction_fraction": 0.8332834480694403
+  },
+  "cases": [
+    {
+      "case": "gemmajev-demo:50:2026121201",
+      "before": {
+        "case": "gemmajev-demo:50:2026121201",
+        "scope": "demo_fit",
+        "goal": true,
+        "attempts": 756,
+        "collisions": 0,
+        "model_calls": 124,
+        "forced_moves": 632,
+        "masked_argmax": 62,
+        "seconds": 4.578542599454522,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "gemmajev-demo:50:2026121201",
+        "scope": "demo_fit",
+        "goal": true,
+        "attempts": 226,
+        "collisions": 0,
+        "model_calls": 46,
+        "forced_moves": 180,
+        "masked_argmax": 0,
+        "seconds": 2.669127912260592,
+        "replay_verified": true
+      },
+      "attempt_change": -530
+    },
+    {
+      "case": "gemmajev-demo:50:2026121202",
+      "before": {
+        "case": "gemmajev-demo:50:2026121202",
+        "scope": "demo_fit",
+        "goal": true,
+        "attempts": 729,
+        "collisions": 0,
+        "model_calls": 176,
+        "forced_moves": 553,
+        "masked_argmax": 103,
+        "seconds": 4.064160509034991,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "gemmajev-demo:50:2026121202",
+        "scope": "demo_fit",
+        "goal": true,
+        "attempts": 131,
+        "collisions": 0,
+        "model_calls": 39,
+        "forced_moves": 92,
+        "masked_argmax": 0,
+        "seconds": 0.9274044204503298,
+        "replay_verified": true
+      },
+      "attempt_change": -598
+    },
+    {
+      "case": "gemmajev-demo:50:2026121203",
+      "before": {
+        "case": "gemmajev-demo:50:2026121203",
+        "scope": "demo_fit",
+        "goal": true,
+        "attempts": 1856,
+        "collisions": 0,
+        "model_calls": 355,
+        "forced_moves": 1501,
+        "masked_argmax": 172,
+        "seconds": 8.492260686121881,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "gemmajev-demo:50:2026121203",
+        "scope": "demo_fit",
+        "goal": true,
+        "attempts": 200,
+        "collisions": 0,
+        "model_calls": 72,
+        "forced_moves": 128,
+        "masked_argmax": 0,
+        "seconds": 1.5886970646679401,
+        "replay_verified": true
+      },
+      "attempt_change": -1656
+    }
+  ],
+  "scope": [
+    "demo_fit"
+  ],
+  "policy": "Model ranks available unvisited legal passages; DFS stack backtracks; forced moves skip inference"
+}

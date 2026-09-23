@@ -9,6 +9,15 @@ const directions = ["north", "east", "south", "west"];
 const layers = [];
 async function start() {
   data = await (await fetch("demo.json")).json();
+  if (data.mode === "navigation") {
+    document.querySelector("header p").textContent =
+      "Gemma 3 270M · trained with Tunix · movement with memory";
+    document.querySelector(".tag").textContent = "Accelerated replay";
+    document.querySelector("footer span:nth-child(2)").textContent =
+      "Local 5 × 5 observations · Gemma chooses at junctions";
+    document.querySelector("footer span:nth-child(3)").textContent =
+      "Demo maps included in training";
+  }
   maximum = 1000;
   timeline.max = maximum;
   for (const maze of data.mazes) {
@@ -99,12 +108,18 @@ function draw() {
           ? "Wall encountered"
           : "Exploring";
     panel.querySelector(".metric").textContent = `${k} attempts · ${collisions} wall hits`;
+    if (data.mode === "navigation") {
+      panel.querySelector(".prob-heading").textContent = frame.action
+        ? `${frame.forced ? "Path memory" : "Gemma"}: move ${frame.action}`
+        : "Gemma scores the available directions at junctions";
+    }
     directions.forEach((key, n) => {
       const value = frame.probabilities[key],
         bar = panel.querySelector(".bars").children[n];
       bar.querySelector(".value").textContent =
         value === undefined ? "" : `${(value * 100).toFixed(1)}%`;
       bar.querySelector(".fill").style.width = `${(value || 0) * 100}%`;
+      bar.style.opacity = frame.available && !frame.available.includes(key) ? "0.3" : "1";
     });
   });
   document.querySelector("#clock").textContent = `Replay ${Math.round((current / maximum) * 100)}%`;

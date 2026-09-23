@@ -1,0 +1,131 @@
+{
+  "status": "matched",
+  "same_cases_controller_and_limit": true,
+  "reference_run": "runs/maze-expanded",
+  "candidate_run": "runs/navigation-rehearsal",
+  "all_candidates_finish": true,
+  "all_cases_use_fewer_attempts": false,
+  "attempts": {
+    "before": 4866,
+    "after": 3218,
+    "reduction_fraction": 0.3386765310316482
+  },
+  "cases": [
+    {
+      "case": "navigation:50:202609233000",
+      "before": {
+        "case": "navigation:50:202609233000",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 1714,
+        "collisions": 0,
+        "model_calls": 271,
+        "forced_moves": 1443,
+        "masked_argmax": 140,
+        "seconds": 8.507928812876344,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "navigation:50:202609233000",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 168,
+        "collisions": 0,
+        "model_calls": 50,
+        "forced_moves": 118,
+        "masked_argmax": 0,
+        "seconds": 2.6137300357222557,
+        "replay_verified": true
+      },
+      "attempt_change": -1546
+    },
+    {
+      "case": "navigation:50:202609233001",
+      "before": {
+        "case": "navigation:50:202609233001",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 578,
+        "collisions": 0,
+        "model_calls": 134,
+        "forced_moves": 444,
+        "masked_argmax": 70,
+        "seconds": 3.1786425970494747,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "navigation:50:202609233001",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 1840,
+        "collisions": 0,
+        "model_calls": 239,
+        "forced_moves": 1601,
+        "masked_argmax": 0,
+        "seconds": 6.6841188846156,
+        "replay_verified": true
+      },
+      "attempt_change": 1262
+    },
+    {
+      "case": "navigation:50:202609233002",
+      "before": {
+        "case": "navigation:50:202609233002",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 490,
+        "collisions": 0,
+        "model_calls": 113,
+        "forced_moves": 377,
+        "masked_argmax": 62,
+        "seconds": 2.659497309476137,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "navigation:50:202609233002",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 986,
+        "collisions": 0,
+        "model_calls": 194,
+        "forced_moves": 792,
+        "masked_argmax": 0,
+        "seconds": 4.760684891603887,
+        "replay_verified": true
+      },
+      "attempt_change": 496
+    },
+    {
+      "case": "navigation:50:202609233003",
+      "before": {
+        "case": "navigation:50:202609233003",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 2084,
+        "collisions": 0,
+        "model_calls": 258,
+        "forced_moves": 1826,
+        "masked_argmax": 126,
+        "seconds": 7.146798688918352,
+        "replay_verified": true
+      },
+      "after": {
+        "case": "navigation:50:202609233003",
+        "scope": "generated",
+        "goal": true,
+        "attempts": 224,
+        "collisions": 0,
+        "model_calls": 52,
+        "forced_moves": 172,
+        "masked_argmax": 0,
+        "seconds": 1.2497480195015669,
+        "replay_verified": true
+      },
+      "attempt_change": -1860
+    }
+  ],
+  "scope": [
+    "generated"
+  ],
+  "policy": "Model ranks available unvisited legal passages; DFS stack backtracks; forced moves skip inference"
+}

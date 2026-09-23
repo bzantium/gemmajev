@@ -1,0 +1,15 @@
+{
+  "model_name": "gemma-3-270m-it",
+  "seed": 17,
+  "steps": 1200,
+  "batch_size": 8,
+  "max_length": 512,
+  "learning_rate": 0.00003,
+  "dataset": "gemmajev-navigation-v1",
+  "initial_run": "runs/maze-expanded",
+  "purpose": "Supervised next-movement selection from a local window and exploration memory; demo maps included in training",
+  "task_batches": {"maze": 6, "basic": 2},
+  "maze_demo_per_batch": 3,
+  "monitor_every": 200,
+  "extra_sources": ["gemmajev/navigation.py", "scripts/prepare_navigation.py"]
+}

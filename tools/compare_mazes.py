@@ -5,9 +5,51 @@ import json
 from pathlib import Path
 
 
+def compare_navigation(reference, candidate):
+    old, new = [json.loads((p / "summary.json").read_text()) for p in (reference, candidate)]
+    for key in ("cases_sha256", "source_sha256", "policy", "backend"):
+        if old[key] != new[key]:
+            raise ValueError(f"Navigation comparison changed {key}")
+    if [r["case"] for r in old["cases"]] != [r["case"] for r in new["cases"]]:
+        raise ValueError("Cases were omitted or reordered")
+    cases = []
+    for index, (before, after) in enumerate(zip(old["cases"], new["cases"], strict=True), 1):
+        episodes = [
+            json.loads((p / f"maze-{index}.json").read_text()) for p in (reference, candidate)
+        ]
+        if episodes[0]["case"] != episodes[1]["case"]:
+            raise ValueError("Maze geometry or scope changed")
+        cases.append(
+            dict(
+                case=before["case"],
+                before=before,
+                after=after,
+                attempt_change=after["attempts"] - before["attempts"],
+            )
+        )
+    totals = [sum(r["attempts"] for r in report["cases"]) for report in (old, new)]
+    return dict(
+        status="matched",
+        same_cases_controller_and_limit=True,
+        reference_run=old["model"],
+        candidate_run=new["model"],
+        all_candidates_finish=all(r["goal"] for r in new["cases"]),
+        all_cases_use_fewer_attempts=all(r["attempt_change"] < 0 for r in cases),
+        attempts=dict(
+            before=totals[0], after=totals[1], reduction_fraction=1 - totals[1] / totals[0]
+        ),
+        cases=cases,
+        scope=sorted({r["scope"] for r in new["cases"]}),
+        policy=new["policy"],
+    )
+
+
 def compare(reference, candidate, allow_observation_layout_change=False):
     def read(folder, name):
         return json.loads((folder / name).read_text())
+
+    if isinstance(read(reference, "summary.json"), dict):
+        return compare_navigation(reference, candidate)
 
     old_provenance = read(reference, "provenance.json")
     new_provenance = read(candidate, "provenance.json")

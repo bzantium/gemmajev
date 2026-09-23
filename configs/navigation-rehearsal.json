@@ -1,0 +1,15 @@
+{
+  "model_name": "gemma-3-270m-it",
+  "seed": 17,
+  "steps": 800,
+  "batch_size": 8,
+  "max_length": 512,
+  "learning_rate": 0.00001,
+  "dataset": "gemmajev-navigation-v1",
+  "initial_run": "runs/navigation-v1",
+  "purpose": "Rehearse existing ViZDoom expert actions while retaining memory-conditioned Maze movement",
+  "task_batches": {"maze": 4, "basic": 4},
+  "maze_demo_per_batch": 2,
+  "monitor_every": 200,
+  "extra_sources": ["gemmajev/navigation.py", "scripts/prepare_navigation.py"]
+}

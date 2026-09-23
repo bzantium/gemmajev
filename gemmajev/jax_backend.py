@@ -30,7 +30,7 @@ class GameEngine:
             ):
                 raise ValueError("Observation formatter differs from the training source")
         self.model, self.tokenizer, self.mesh = load_model(
-            self.config["seed"], self.config["model_name"], "chat"
+            self.config["seed"], self.config["model_name"], "chat", for_restore=True
         )
         with self.mesh:
             manager = CheckpointManager(str(self.run / "checkpoint"))

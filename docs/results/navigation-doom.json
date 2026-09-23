@@ -1,0 +1,44 @@
+{
+  "maze-expanded": {
+    "case": "test-appo_basic-9030060",
+    "metrics": {
+      "success": true,
+      "outcome": "target_killed",
+      "decisions": 13,
+      "physical_ticks": 49,
+      "native_reward": 52.0,
+      "killcount": 1.0,
+      "kills": 1.0,
+      "damage_dealt": 5.0,
+      "damage_taken": 0.0,
+      "health": 100.0,
+      "ammo": 49.0,
+      "ammo_consumed": 1.0
+    },
+    "replay_verified": true,
+    "recorded_decisions": 13,
+    "replayed_decisions": 13,
+    "episode_sha256": "3f56e5b9eae361b4b41b5cbdc5d6eb489b4fc336a75c675e3eb863824224c02d"
+  },
+  "navigation-rehearsal": {
+    "case": "test-appo_basic-9030060",
+    "metrics": {
+      "success": true,
+      "outcome": "target_killed",
+      "decisions": 13,
+      "physical_ticks": 49,
+      "native_reward": 52.0,
+      "killcount": 1.0,
+      "kills": 1.0,
+      "damage_dealt": 5.0,
+      "damage_taken": 0.0,
+      "health": 100.0,
+      "ammo": 49.0,
+      "ammo_consumed": 1.0
+    },
+    "replay_verified": true,
+    "recorded_decisions": 13,
+    "replayed_decisions": 13,
+    "episode_sha256": "370f13386d2bc0f959f181295eb6865ab2819d65dddee195cf55e5754cf12f7a"
+  }
+}

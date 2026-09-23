@@ -1,0 +1,29 @@
+[
+  {
+    "case": "gemmajev-demo:50:2026121201",
+    "status": "goal",
+    "goal_completion": true,
+    "attempts": 624,
+    "successful_moves": 464,
+    "collisions": 160,
+    "seconds": 22.82129895919934
+  },
+  {
+    "case": "gemmajev-demo:50:2026121202",
+    "status": "goal",
+    "goal_completion": true,
+    "attempts": 400,
+    "successful_moves": 293,
+    "collisions": 107,
+    "seconds": 13.598960707895458
+  },
+  {
+    "case": "gemmajev-demo:50:2026121203",
+    "status": "goal",
+    "goal_completion": true,
+    "attempts": 751,
+    "successful_moves": 498,
+    "collisions": 253,
+    "seconds": 16.732874541077763
+  }
+]

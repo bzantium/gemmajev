@@ -1,0 +1,10 @@
+{
+  "model_name": "gemma-3-270m-it",
+  "seed": 17,
+  "steps": 800,
+  "batch_size": 8,
+  "max_length": 512,
+  "learning_rate": 1e-05,
+  "dataset": "gemmajev-v1",
+  "purpose": "One shared SFT model for the two NanoJev README demonstrations"
+}

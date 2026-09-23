@@ -1,0 +1,16 @@
+{
+  "model_name": "gemma-3-270m-it",
+  "seed": 17,
+  "steps": 1600,
+  "batch_size": 8,
+  "max_length": 512,
+  "learning_rate": 1e-05,
+  "dataset": "gemmajev-maze-v2",
+  "purpose": "Expand the successfully learned local Maze rule at a lower learning rate, with equal Doom rehearsal",
+  "initial_run": "runs/maze-warmup",
+  "task_batches": {
+    "maze": 4,
+    "basic": 4
+  },
+  "monitor_every": 200
+}

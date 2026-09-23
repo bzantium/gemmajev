@@ -1,0 +1,14 @@
+Jev–Tunix
+Copyright 2026 Jev–Tunix contributors
+
+The Gemma forward adapter follows the layer order of google/tunix (Apache-2.0).
+Tunix copyright: Google LLC. The adapter is modified to return hidden states
+for candidate scoring instead of decoding the vocabulary.
+
+NanoJev inspired the state/question/candidate interface and comparison demo
+presentation. TypeSafe Jev and NanoJev are separate projects. This repository
+does not reproduce Jev's proprietary training method or claim affiliation.
+
+The Apple GPU inference adapter uses Apple MLX and MLX-LM (MIT).
+Pinned NanoJev source is downloaded separately with its MIT license preserved.
+Gemma weights and downloaded datasets retain their respective terms.

@@ -1,0 +1,40 @@
+{
+  "status": "completed",
+  "precision": "float16",
+  "bits": 8,
+  "device": {
+    "device_name": "Apple M2 Max",
+    "max_recommended_working_set_size": 26800603136,
+    "memory_size": 34359738368,
+    "architecture": "applegpu_g14s",
+    "max_buffer_length": 20100448256,
+    "resource_limit": 499000
+  },
+  "platform": "macOS-26.5.1-arm64-arm-64bit-Mach-O",
+  "versions": {
+    "mlx": "0.32.2",
+    "mlx-lm": "0.29.1",
+    "transformers": "4.57.6",
+    "numpy": "2.5.3"
+  },
+  "reference_questions": 40,
+  "changed_decisions": 0,
+  "max_probability_difference": 0.06879752123924632,
+  "mean_probability_difference": 0.03156761733353073,
+  "mean_seconds": 0.05225065411068499,
+  "median_seconds": 0.05235543753951788,
+  "warm_seconds": [
+    0.0523161250166595,
+    0.05210683308541775,
+    0.051459457725286484,
+    0.05239475006237626,
+    0.05179724982008338,
+    0.052566708996891975,
+    0.05213258322328329,
+    0.05245725018903613,
+    0.052720749750733376,
+    0.052554833237081766
+  ],
+  "scope": "40 frozen questions, one Maze observation timed ten times. Full rollouts evaluated separately.",
+  "export_manifest_sha256": "37edcfd5368f2b3ac6eb2f05fc07c488a9c7fd0bbf62787550e8b131840f8d69"
+}

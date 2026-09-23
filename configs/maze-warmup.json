@@ -1,0 +1,17 @@
+{
+  "model_name": "gemma-3-270m-it",
+  "seed": 17,
+  "steps": 240,
+  "batch_size": 8,
+  "max_length": 512,
+  "learning_rate": 0.0001,
+  "dataset": "gemmajev-v1",
+  "purpose": "Small fixed training-set fit check before Maze data expansion; not a performance result",
+  "initial_run": "runs/baseline",
+  "task_batches": {
+    "maze": 8,
+    "basic": 0
+  },
+  "train_limit_per_task": 64,
+  "monitor_every": 80
+}

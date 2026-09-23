@@ -1,0 +1,45 @@
+{
+  "states": [
+    {
+      "id": "maze-example",
+      "answers": {
+        "clear_north": {
+          "type": "boolean",
+          "probabilities": {
+            "false": 0.22645064489151787,
+            "true": 0.7735493551084821
+          },
+          "p_true": 0.7735493551084821
+        },
+        "clear_east": {
+          "type": "boolean",
+          "probabilities": {
+            "false": 0.5988576000641128,
+            "true": 0.4011423999358873
+          },
+          "p_true": 0.4011423999358873
+        },
+        "clear_south": {
+          "type": "boolean",
+          "probabilities": {
+            "false": 0.221494894742061,
+            "true": 0.778505105257939
+          },
+          "p_true": 0.778505105257939
+        },
+        "clear_west": {
+          "type": "boolean",
+          "probabilities": {
+            "false": 0.6009008300030567,
+            "true": 0.3990991699969433
+          },
+          "p_true": 0.3990991699969433
+        }
+      }
+    }
+  ],
+  "execution": {
+    "forward_passes": 1,
+    "network_model_calls": 0
+  }
+}

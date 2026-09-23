@@ -3,7 +3,7 @@
 import json
 import unittest
 
-from examples.gemmajev.prepare_maze_data import (
+from scripts.prepare_maze_data import (
     contrast,
     family,
     labeled_rows,
@@ -25,18 +25,28 @@ class MazeAugmentationTest(unittest.TestCase):
         return result
 
     def test_known_neighbors(self):
-        self.assertEqual(self.labels(self.text), {
-            "clear_north": "true", "clear_east": "true",
-            "clear_south": "false", "clear_west": "false",
-        })
+        self.assertEqual(
+            self.labels(self.text),
+            {
+                "clear_north": "true",
+                "clear_east": "true",
+                "clear_south": "false",
+                "clear_west": "false",
+            },
+        )
 
     def test_rotation_moves_labels_and_coordinates(self):
         rotated = rotate_observation(self.text, 12)
         self.assertIn("(4,8)", rotated)
-        self.assertEqual(self.labels(rotated), {
-            "clear_north": "false", "clear_east": "true",
-            "clear_south": "true", "clear_west": "false",
-        })
+        self.assertEqual(
+            self.labels(rotated),
+            {
+                "clear_north": "false",
+                "clear_east": "true",
+                "clear_south": "true",
+                "clear_west": "false",
+            },
+        )
         self.assertEqual(family(self.text), family(rotated))
         for _ in range(3):
             rotated = rotate_observation(rotated, 12)
@@ -48,8 +58,15 @@ class MazeAugmentationTest(unittest.TestCase):
             before, after = self.labels(self.text), self.labels(changed)
             differences = [k for k in before if before[k] != after[k]]
             self.assertEqual(differences, ["clear_" + direction])
-            self.assertEqual(sum(a != b for a, b in zip(
-                "".join(window(self.text)), "".join(window(changed)), strict=True)), 1)
+            self.assertEqual(
+                sum(
+                    a != b
+                    for a, b in zip(
+                        "".join(window(self.text)), "".join(window(changed)), strict=True
+                    )
+                ),
+                1,
+            )
 
     def test_outside_cell_cannot_be_toggled_open(self):
         boundary = self.text.replace("##.##", "XXXXX")

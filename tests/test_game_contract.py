@@ -4,7 +4,7 @@ import unittest
 
 import numpy as np
 
-from jev_tunix.game_contract import decision_row, encode_games, format_answer
+from gemmajev.interface import decision_row, encode_games, format_answer
 
 
 class Tokenizer:

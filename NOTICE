@@ -1,5 +1,5 @@
-Jev–Tunix
-Copyright 2026 Jev–Tunix contributors
+GemmaJev
+Copyright 2026 GemmaJev contributors
 
 The Gemma forward adapter follows the layer order of google/tunix (Apache-2.0).
 Tunix copyright: Google LLC. The adapter is modified to return hidden states

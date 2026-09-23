@@ -1,0 +1,42 @@
+{
+  "states": [
+    {
+      "id": "maze-example",
+      "state": "Agent coordinate: (3,1); zero-based row and column. Rows increase south; columns increase east. The local window is centered on A. '#': wall; '.': open; 'A': agent; 'X': outside.\nLocal map:\nX#...\nX#.##\nX#A#.\nX#.#.\nX#...",
+      "questions": {
+        "clear_north": {
+          "type": "boolean",
+          "instructions": "If the agent attempts one cell north (row minus one, same column), will the destination be inside the maze and not a wall? Use the local map: '.' and 'A' are traversable, '#' is a wall, and 'X' is outside the maze.",
+          "criteria": {
+            "false": "The destination of the one-cell north attempt is a wall or outside the maze.",
+            "true": "The destination of the one-cell north attempt is inside the maze and traversable."
+          }
+        },
+        "clear_east": {
+          "type": "boolean",
+          "instructions": "If the agent attempts one cell east (same row, column plus one), will the destination be inside the maze and not a wall? Use the local map: '.' and 'A' are traversable, '#' is a wall, and 'X' is outside the maze.",
+          "criteria": {
+            "false": "The destination of the one-cell east attempt is a wall or outside the maze.",
+            "true": "The destination of the one-cell east attempt is inside the maze and traversable."
+          }
+        },
+        "clear_south": {
+          "type": "boolean",
+          "instructions": "If the agent attempts one cell south (row plus one, same column), will the destination be inside the maze and not a wall? Use the local map: '.' and 'A' are traversable, '#' is a wall, and 'X' is outside the maze.",
+          "criteria": {
+            "false": "The destination of the one-cell south attempt is a wall or outside the maze.",
+            "true": "The destination of the one-cell south attempt is inside the maze and traversable."
+          }
+        },
+        "clear_west": {
+          "type": "boolean",
+          "instructions": "If the agent attempts one cell west (same row, column minus one), will the destination be inside the maze and not a wall? Use the local map: '.' and 'A' are traversable, '#' is a wall, and 'X' is outside the maze.",
+          "criteria": {
+            "false": "The destination of the one-cell west attempt is a wall or outside the maze.",
+            "true": "The destination of the one-cell west attempt is inside the maze and traversable."
+          }
+        }
+      }
+    }
+  ]
+}

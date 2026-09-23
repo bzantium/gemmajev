@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GemmaJev · Game demos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="#">GemmaJev<span></span></a
+      ><a href="https://github.com/bzantium/gemmajev">Code ↗</a>
+    </header>
+    <main>
+      <section class="intro">
+        <p class="eyebrow">GEMMA 3 · TUNIX</p>
+        <h1>A small model.<br />Two games to play.</h1>
+        <p class="lede">
+          An observation, a question, a few possible answers.<br />Gemma scores the choices. The
+          game controller takes the next step.
+        </p>
+        <nav aria-label="Demos">
+          <a href="#vizdoom">01 ViZDoom</a><a href="#maze">02 Maze</a
+          ><a href="#three-mazes">03 Three more mazes</a>
+        </nav>
+      </section>
+      <section class="demo" id="vizdoom">
+        <div class="heading">
+          <span class="number">01</span>
+          <div>
+            <h2>Aim, then fire.</h2>
+            <p>ViZDoom · Jev / NanoJev / GemmaJev</p>
+          </div>
+        </div>
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="media/vizdoom.jpg"
+          aria-label="ViZDoom comparison recording"
+        >
+          <source src="media/vizdoom.mp4" type="video/mp4" />
+        </video>
+        <div class="caption">
+          <p>
+            Left, right, shoot or wait. The model scores four actions from the visible text
+            observation.
+          </p>
+          <span>Initial checkpoint</span>
+        </div>
+      </section>
+      <section class="demo" id="maze">
+        <div class="heading">
+          <span class="number">02</span>
+          <div>
+            <h2>Find the exit.</h2>
+            <p>50 × 50 Maze · Jev / NanoJev / GemmaJev</p>
+          </div>
+        </div>
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="media/maze.jpg"
+          aria-label="Maze comparison recording"
+        >
+          <source src="media/maze.mp4" type="video/mp4" />
+        </video>
+        <div class="caption">
+          <p>
+            Only a 5 × 5 window goes to the model. Shared exploration code combines its local
+            judgments with remembered paths.
+          </p>
+          <span>Initial checkpoint</span>
+        </div>
+      </section>
+      <section class="demo" id="three-mazes">
+        <div class="heading">
+          <span class="number">03</span>
+          <div>
+            <h2>Three more mazes.</h2>
+            <p>GemmaJev · Fixed seeds, continued training</p>
+          </div>
+        </div>
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="media/three-mazes.jpg"
+          aria-label="Three GemmaJev maze recordings"
+        >
+          <source src="media/three-mazes.mp4" type="video/mp4" />
+        </video>
+        <div class="caption">
+          <p>
+            The continued model reaches all three exits. Recorded GPU trajectories, shown together
+            in a 14.28-second clip.
+          </p>
+          <span>Continued checkpoint</span>
+        </div>
+      </section>
+      <aside>
+        <strong>About these recordings</strong>
+        <p>
+          Playback is accelerated and does not represent inference speed. These are fixed
+          demonstrations, not aggregate benchmarks. Jev and NanoJev panels come from the public
+          NanoJev recordings; GemmaJev panels use our trained model. No model requests are made by
+          this page.
+        </p>
+      </aside>
+    </main>
+    <footer>
+      <span>Built with Gemma and Tunix.</span
+      ><a href="https://github.com/TianyuCodings/NanoJev">NanoJev ↗</a>
+    </footer>
+  </body>
+</html>

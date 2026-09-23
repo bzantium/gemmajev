@@ -8,19 +8,34 @@ distribution. The backbone and head are both trained; this recipe does not use R
 
 ## Prepare the inputs
 
-Run the setup commands in the [README](../README.md) first:
+Use Python 3.12 on Linux. From the repository root:
 
 ```bash
 source scripts/env.sh
-.venv/bin/python examples/gemmajev/prepare_data.py
-.venv/bin/python examples/gemmajev/prepare_maze_data.py
-.venv/bin/python examples/gemmajev/check_inputs.py --config configs/baseline.json
-.venv/bin/python examples/gemmajev/check_inputs.py --config configs/maze-expanded.json
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements/cuda.lock.txt
+.venv/bin/python -m pip install -e '.[dev,games,demo]'
+.venv/bin/python scripts/fetch_resources.py
+.venv/bin/python scripts/download_model.py --model gemma-3-270m-it
+```
+
+The Gemma download requires Hugging Face access under the model's terms.
+Authenticate through your environment. The CUDA lock records the tested training
+environment; Mac inference has a separate [MLX setup](mlx.md).
+
+Prepare and check the data:
+
+```bash
+source scripts/env.sh
+.venv/bin/python scripts/prepare_data.py
+.venv/bin/python scripts/prepare_maze_data.py
+.venv/bin/python scripts/check_inputs.py --config configs/baseline.json
+.venv/bin/python scripts/check_inputs.py --config configs/maze-expanded.json
 ```
 
 The fetcher pins NanoJev source to commit
 `76fdfc9ecdca45a9bcef17991a07d3041a87685a` and checks the data release manifest.
-Model revisions are pinned in [model_registry.py](../jev_tunix/model_registry.py).
+Model revisions are pinned in [model_registry.py](../gemmajev/backbones.py).
 
 | Dataset | Train | Validation | Test |
 | --- | --- | --- | --- |
@@ -46,11 +61,11 @@ All runs use seed 17, batch size 8 and a maximum of 512 tokens per candidate.
 Run each command in a **single-GPU environment**, with a fresh output folder:
 
 ```bash
-.venv/bin/python examples/gemmajev/train.py \
+.venv/bin/python scripts/train.py \
   --config configs/baseline.json --output runs/baseline
-.venv/bin/python examples/gemmajev/train.py \
+.venv/bin/python scripts/train.py \
   --config configs/maze-warmup.json --output runs/maze-warmup
-.venv/bin/python examples/gemmajev/train.py \
+.venv/bin/python scripts/train.py \
   --config configs/maze-expanded.json --output runs/maze-expanded
 ```
 
@@ -69,13 +84,13 @@ Tunix's `PeftTrainer.with_loss_fn` accepts the candidate loss; the trainer manag
 updates and checkpointing while the game interface remains outside it. The
 script checks finite losses, records the batch schedule, hashes its inputs and
 sources, and restores the saved checkpoint to check identical scores.
-Historical measured summaries are under [results](../results). Hardware and
+Historical measured summaries are under [results](results/). Hardware and
 floating-point differences can affect a rerun.
 
 To compare the baseline and continued model on frozen questions:
 
 ```bash
-.venv/bin/python examples/gemmajev/evaluate_maze.py \
+.venv/bin/python scripts/evaluate.py \
   --reference runs/baseline --run runs/maze-expanded \
   --output runs/evaluation
 ```

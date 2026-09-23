@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>GemmaJev: three mazes</title>
+    <link rel="stylesheet" href="demo.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>GemmaJev: three mazes</h1>
+        <p>Gemma 3 270M · trained with Tunix</p>
+      </div>
+      <span class="tag">Recorded gameplay</span>
+    </header>
+    <main>
+      <div id="panels"></div>
+      <div class="controls">
+        <button id="play">Play</button><button id="restart">Restart</button
+        ><input
+          id="timeline"
+          aria-label="Replay position"
+          type="range"
+          min="0"
+          value="0"
+          step="1"
+        /><output id="clock"></output>
+      </div>
+    </main>
+    <footer>
+      <span><i class="agent"></i> Agent <i class="goal"></i> Exit</span
+      ><span>Local 5 × 5 observations · exploration remembers visited edges</span
+      ><span>Replays use different playback speeds</span>
+    </footer>
+    <script src="demo.js"></script>
+  </body>
+</html>

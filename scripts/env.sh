@@ -1,6 +1,15 @@
 #!/bin/bash
-# Source this file from any directory. Do not change HOME or CODEX_HOME.
-JEV_PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Source this file from Bash or Zsh, from any directory.
+if [[ -n "${BASH_VERSION:-}" ]]; then
+  JEV_ENV_SCRIPT="${BASH_SOURCE[0]}"
+elif [[ -n "${ZSH_VERSION:-}" ]]; then
+  JEV_ENV_SCRIPT="${(%):-%x}"
+else
+  echo "Source scripts/env.sh from Bash or Zsh." >&2
+  return 1
+fi
+JEV_PROJECT_ROOT="$(cd "$(dirname "$JEV_ENV_SCRIPT")/.." && pwd)"
+unset JEV_ENV_SCRIPT
 export JEV_PROJECT_ROOT
 export XDG_CACHE_HOME="$JEV_PROJECT_ROOT/.cache"
 export XDG_CONFIG_HOME="$JEV_PROJECT_ROOT/.config"

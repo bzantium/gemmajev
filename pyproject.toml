@@ -27,12 +27,12 @@ demo = ["playwright==1.58.0", "pillow>=11,<13"]
 games = ["vizdoom==1.3.0"]
 
 [tool.setuptools]
-packages = ["jev_tunix"]
+packages = ["gemmajev"]
 
 [tool.ruff]
 target-version = "py312"
 line-length = 100
-include = ["jev_tunix/**/*.py", "scripts/**/*.py", "tests/**/*.py", "examples/**/*.py"]
+include = ["gemmajev/**/*.py", "scripts/**/*.py", "tests/**/*.py", "examples/**/*.py", "tools/**/*.py"]
 
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F", "I"]

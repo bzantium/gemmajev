@@ -37,13 +37,15 @@ floating-point arithmetic. They are not new training gains. The 8-bit version
 was checked on the 40 questions only; it was not selected for full rollouts.
 The presentation's 14.28-second video remains accelerated recorded gameplay.
 
-## Run with the prepared Mac environment
+## Run with a prepared Mac environment
 
 From the project directory:
 
 ```bash
 source scripts/env.sh
-.venv-mlx/bin/python examples/gemmajev/rollout_mlx.py \
+.venv-mlx/bin/python scripts/fetch_resources.py --source-only
+.venv-mlx/bin/python examples/prepare_mazes.py
+.venv-mlx/bin/python examples/maze_mlx.py \
   --model artifacts/maze-expanded-mlx \
   --precision float32 \
   --output runs/mlx-three-mazes
@@ -56,7 +58,7 @@ To repeat the output and latency check:
 
 ```bash
 source scripts/env.sh
-.venv-mlx/bin/python examples/gemmajev/validate_mlx.py \
+.venv-mlx/bin/python tools/validate_mlx.py \
   --model artifacts/maze-expanded-mlx \
   --output runs/mlx-check
 ```
@@ -75,14 +77,14 @@ Tunix/JAX training environment. All packages and caches stay under the project:
 source scripts/env.sh
 export PIP_CACHE_DIR="$JEV_PROJECT_ROOT/.cache/pip"
 python3.13 -m venv .venv-mlx
-.venv-mlx/bin/python -m pip install -r requirements-mlx-mac.lock.txt
+.venv-mlx/bin/python -m pip install -r requirements/mlx.lock.txt
 ```
 
 Export a completed checkpoint in the existing Tunix environment:
 
 ```bash
 source scripts/env.sh
-JAX_PLATFORMS=cpu python examples/gemmajev/export_mlx.py \
+JAX_PLATFORMS=cpu .venv/bin/python scripts/export_mlx.py \
   --run runs/maze-expanded \
   --output artifacts/maze-expanded-mlx
 ```
@@ -99,4 +101,4 @@ matches Tunix's activation dtype instead of MLX-LM's BF16-rounded constant. It
 does not use the vocabulary generation head. The original JAX inference path
 remains available.
 
-Measured summaries are in [`results/`](../results). Model exports and full trajectories are generated locally and are not included in Git.
+Measured summaries are in [results](results/). Model exports and full trajectories are generated locally and are not included in Git.

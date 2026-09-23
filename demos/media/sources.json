@@ -1,0 +1,17 @@
+{
+  "vizdoom": {
+    "checkpoint": "baseline",
+    "sha256": "ddc1cb00abf48f03cd33d3c5a1e481a46c100a234267ee9ad4d08a0e287a690f",
+    "playback": "Recorded and accelerated gameplay, not live inference"
+  },
+  "maze": {
+    "checkpoint": "baseline",
+    "sha256": "d199b24c89d4f45667c8e9bc0ee589c8a4126f540beb309b79fc8df29487b03d",
+    "playback": "Recorded and accelerated gameplay, not live inference"
+  },
+  "three-mazes": {
+    "checkpoint": "maze-expanded",
+    "sha256": "fa1d4c617bd6224d463fbff7ede9bf63307ac6aa5b581c6810696dd33f4de5d4",
+    "playback": "Recorded and accelerated gameplay, not live inference"
+  }
+}

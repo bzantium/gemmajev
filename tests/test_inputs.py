@@ -4,7 +4,7 @@ import unittest
 
 import numpy as np
 
-from jev_tunix.decision import make_batch
+from gemmajev.model import make_batch
 
 
 class TokenizerStub:

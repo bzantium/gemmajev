@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Jev / NanoJev / GemmaJev</title>
+    <link rel="stylesheet" href="demo.css" />
+  </head>
+  <body>
+    <header>
+      <span class="eyebrow">DEVFEST SURABAYA 2026</span><span class="tag">Recorded gameplay</span>
+    </header>
+    <main>
+      <h1>Jev / NanoJev / <span>GemmaJev</span></h1>
+      <p class="intro">Build a decision model with Gemma and Tunix.</p>
+      <nav aria-label="Game">
+        <button data-game="basic" class="selected">01 &nbsp; Aim, then fire</button
+        ><button data-game="maze">02 &nbsp; Find the exit</button>
+      </nav>
+      <section id="panels" aria-label="Model recordings"></section>
+      <div class="controls">
+        <button id="play">Play</button><button id="restart">Restart</button
+        ><input id="timeline" type="range" min="0" value="0" aria-label="Playback position" /><label
+          >Speed
+          <select id="speed">
+            <option value="1">1×</option>
+            <option value="5">5×</option>
+            <option value="20">20×</option>
+          </select></label
+        ><output id="clock"></output>
+      </div>
+      <p id="explanation"></p>
+    </main>
+    <footer>
+      <span>Same fixed case and controller. Model probabilities drive the choices.</span
+      ><span
+        ><a href="https://github.com/TianyuCodings/NanoJev"
+          >NanoJev source and baseline recordings</a
+        >
+        · Selected examples, not a benchmark</span
+      >
+    </footer>
+    <script src="demo.js"></script>
+  </body>
+</html>

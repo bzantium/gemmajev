@@ -6,17 +6,14 @@ import json
 import os
 from pathlib import Path
 
-from jev_tunix.model_registry import MODELS
+from gemmajev.backbones import MODELS
 
 ROOT = Path(__file__).resolve().parents[1]
-
-MODEL_ID = "google/gemma-3-270m"
-REVISION = "9b0cfec892e2bc2afd938c98eabe4e4a7b1e0ca1"
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", choices=MODELS, default="gemma-3-270m")
+    parser.add_argument("--model", choices=MODELS, default="gemma-3-270m-it")
     args = parser.parse_args()
     spec = MODELS[args.model]
     # Configure caches before importing the Hub; importing this module has no side effects.

@@ -26,6 +26,8 @@ def hidden_states(backbone, tokens, lengths):
 
 
 class DecisionModel(nnx.Module):
+    """Score supplied candidates in a batch; no response tokens are generated."""
+
     def __init__(self, backbone, seed=17):
         self.backbone = backbone
         # No shared bias: it cancels under candidate softmax and has no signal.
@@ -38,6 +40,7 @@ class DecisionModel(nnx.Module):
         )
 
     def __call__(self, tokens, lengths, candidate_mask):
+        # Flatten questions × candidates into independent input sequences.
         b, c, length = tokens.shape
         flat_lengths = lengths.reshape(-1)
         hidden = hidden_states(self.backbone, tokens.reshape(b * c, length), flat_lengths)

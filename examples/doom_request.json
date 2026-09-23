@@ -1,0 +1,20 @@
+{
+  "states": [
+    {
+      "id": "test-appo_basic-9030060:0",
+      "state": "{\"scenario\":\"basic\",\"goal\":\"Eliminate the monster before the task deadline.\",\"screen_size\":[320,240],\"bbox_format\":\"x,y,width,height; origin top left\",\"remaining_decisions\":72,\"remaining_ticks\":286,\"observed_history\":[{\"episode_tick\":14,\"health\":100.0,\"ammo\":50.0,\"position\":[-384.0,32.0,0.0],\"angle_degrees\":0.0,\"visible_labels\":[{\"id\":0,\"name\":\"Cacodemon\",\"bbox\":[221,110,26,31]},{\"id\":1,\"name\":\"DoomPlayer\",\"bbox\":[135,162,53,77]}],\"visual_state_available\":true}],\"terminal\":false}",
+      "questions": {
+        "action": {
+          "type": "choice",
+          "instructions": "Choose the next action that maximizes the probability of completing the stated task successfully before its deadline. Use the visible state, action descriptions, remaining time, and recorded history.",
+          "criteria": {
+            "left": "Strafe left for 4 Doom ticks.",
+            "right": "Strafe right for 4 Doom ticks.",
+            "shoot": "Hold attack for 4 Doom ticks.",
+            "noop": "Wait without pressing buttons for 4 Doom ticks."
+          }
+        }
+      }
+    }
+  ]
+}

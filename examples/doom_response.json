@@ -1,0 +1,22 @@
+{
+  "states": [
+    {
+      "id": "test-appo_basic-9030060:0",
+      "answers": {
+        "action": {
+          "type": "choice",
+          "probabilities": {
+            "left": 1.2731047284493163e-05,
+            "noop": 1.4405145169682075e-07,
+            "right": 0.9999869777374722,
+            "shoot": 1.471637916409359e-07
+          }
+        }
+      }
+    }
+  ],
+  "execution": {
+    "forward_passes": 1,
+    "network_model_calls": 0
+  }
+}

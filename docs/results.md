@@ -1,6 +1,29 @@
 # Measurements
 
-## Training
+## Movement model
+
+The bundled three-maze recording uses `navigation-rehearsal`. On the same frozen
+validation questions, its parent and final checkpoint score:
+
+| Task | Parent | Movement model |
+| --- | ---: | ---: |
+| Maze next direction, 196 questions | 24.0% | 70.4% |
+| ViZDoom action, 201 questions | 88.1% | 90.0% |
+
+The three demo maps are included in training. Four separate development maps
+produce two shorter and two longer routes under the same controller. See the
+[data, matched gameplay results and limitations](navigation.md#results).
+
+## Movement model on an Apple GPU
+
+The FP32 MLX export matches all 40 Tunix reference decisions (32 Maze movement,
+8 Doom), with maximum probability difference 0.00000681. One movement question
+averaged 35.1 ms over ten warm calls on an M2 Max. This covers tokenization,
+scoring and answer construction on one observation, not complete gameplay.
+
+[MLX conversion report](results/navigation-mlx-fp32.json) · [Download weights](huggingface.md)
+
+## Local-safety model
 
 | Checkpoint | Maze validation | ViZDoom validation |
 | --- | ---: | ---: |

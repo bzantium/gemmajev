@@ -116,7 +116,10 @@ the final results are development evaluation, not a fresh blind benchmark.
 
 The three-map recording uses the final GPU trajectories, with accelerated
 playback. It is a demonstration of fitted behavior, not unseen-map generalization.
-The new checkpoint has not yet been benchmarked through MLX.
+MLX FP32 matches all 40 reference decisions, with a maximum probability
+difference of 0.00000681. One movement question averaged 35.1 ms over ten warm
+calls on an M2 Max. This is a small runtime check; full movement rollouts have
+not been evaluated through MLX. [Download the trained exports](huggingface.md).
 
 [Training result](results/navigation-rehearsal.json) ·
 [Matched demo comparison](results/navigation-comparison-demo.json) ·

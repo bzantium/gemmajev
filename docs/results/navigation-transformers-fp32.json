@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "reference_questions": 40,
+  "changed_decisions": 0,
+  "max_probability_difference": 2.9895792783563024e-06,
+  "probability_tolerance": 0.0001,
+  "precision": "float32",
+  "versions": {
+    "torch": "2.9.1+cpu",
+    "transformers": "4.57.6"
+  },
+  "scope": "40 fixed validation questions: 32 Maze movement and 8 ViZDoom. Runtime conversion check, not a new task benchmark."
+}

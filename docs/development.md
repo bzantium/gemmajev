@@ -24,9 +24,9 @@ checks described in the task guides.
 | Gemma forward pass and supervised loss | `gemmajev/model.py` |
 | Request encoding and answer probabilities | `gemmajev/interface.py`, `gemmajev/tokenization.py` |
 | Checkpoint loading and evaluation helpers | `gemmajev/runtime.py` |
-| Inference | `gemmajev/jax_backend.py`, `gemmajev/mlx_backend.py` |
+| Inference | `gemmajev/jax_backend.py`, `gemmajev/transformers_backend.py`, `gemmajev/mlx_backend.py` |
 | Data and training workflow | `scripts/`, `configs/` |
-| Game execution | `examples/games.py`, `examples/maze.py`, `examples/maze_mlx.py` |
+| Game execution | `examples/games.py`, `examples/navigate.py`, `examples/maze.py` |
 | Replay templates and recording tools | `web/`, `tools/` |
 
 `source scripts/env.sh` sets `PYTHONPATH` for direct script execution and keeps

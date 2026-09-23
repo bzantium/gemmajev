@@ -1,0 +1,30 @@
+[
+  {
+    "name": "navigation",
+    "checkpoint": "navigation-rehearsal",
+    "checkpoint_step": 800,
+    "source_episode_sha256": "cffeced8dae2e88feb665bd362e92ad6bcd6f2e12fa9d4541fba8031cf4b0a35",
+    "step": 0,
+    "action": "north",
+    "scope": "training demonstration map",
+    "response_origin": "Recorded model probabilities wrapped in the current API response structure; no new inference performed during extraction.",
+    "files_sha256": {
+      "navigation_request.json": "3d7c4a13a3c5069498495320d1fe2cfba42134d36dc76fbc1634265410cc13b3",
+      "navigation_response.json": "d9afc85232dc0065c0086276b352c62e55593738ef0b2149c63eb2c4a0b552e3"
+    }
+  },
+  {
+    "name": "doom",
+    "checkpoint": "navigation-rehearsal",
+    "checkpoint_step": 800,
+    "source_episode_sha256": "370f13386d2bc0f959f181295eb6865ab2819d65dddee195cf55e5754cf12f7a",
+    "step": 0,
+    "action": "right",
+    "scope": "fixed ViZDoom test case",
+    "response_origin": "Recorded model probabilities wrapped in the current API response structure; no new inference performed during extraction.",
+    "files_sha256": {
+      "doom_request.json": "35f2d5b197081df5f06c0e6cad26809dbb1f1b44867cc25f3d374e8aa02c60d0",
+      "doom_response.json": "669c919de5af00fb2be26b77ede5396182b2ca9c84a67e8cbf9c8d4fc3c50a2b"
+    }
+  }
+]

@@ -1,12 +1,23 @@
-# GemmaJev
+<h1 align="center">GemmaJev</h1>
 
-**Jev-style game decisions with Gemma 3 270M IT and Tunix.**
+<p align="center">Jev-style game decisions with Gemma 3 270M IT and Tunix.</p>
 
-Give the model an observation, a question and possible answers. Get answer
-probabilities without decoding response tokens.
-Inspired by [NanoJev](https://github.com/TianyuCodings/NanoJev).
+<p align="center">
+  <a href="https://huggingface.co/bzantium/gemma-3-270m-jev"><img alt="Hugging Face model" src="https://img.shields.io/badge/Model-Gemma_3_270M-FFD21E?logo=huggingface&amp;logoColor=black"></a>
+  <a href="https://huggingface.co/bzantium/gemma-3-270m-jev-mlx"><img alt="MLX model for Apple Silicon" src="https://img.shields.io/badge/Apple_Silicon-MLX-222222?logo=apple&amp;logoColor=white"></a>
+  <a href="LICENSE"><img alt="Code license: Apache 2.0" src="https://img.shields.io/badge/Code-Apache_2.0-757575"></a>
+</p>
 
-[Watch the demos](#demos) · [Train a model](docs/training.md) · [Run on a Mac](docs/mlx.md) · [Input and output](docs/interface.md)
+<p align="center">
+  <a href="#demos">Demos</a> ·
+  <a href="#models">Models</a> ·
+  <a href="docs/interface.md">Input &amp; output</a> ·
+  <a href="docs/training.md">Training</a>
+</p>
+
+Give the model an observation, a question and possible answers. It scores the
+answers in a batch and returns probabilities, without decoding response tokens.
+The examples build on [NanoJev](https://github.com/TianyuCodings/NanoJev).
 
 ## Demos
 
@@ -25,9 +36,14 @@ Gemma sees a **5×5 local window** and estimates whether each adjacent cell is
 open. The shared controller explores and remembers paths; the full map is for
 viewers.
 
-[Three more mazes with movement training and visit memory →](demos/media/three-mazes.mp4)
-This newer demo asks Gemma to choose a direction at junctions. Its three maps
-are included in training; [separate-map results](docs/navigation.md#results) are reported too.
+### Maze · Navigate with memory
+
+[![Gemma navigating three mazes](demos/media/three-mazes.jpg)](demos/media/three-mazes.mp4)
+
+Gemma chooses a direction at junctions using the local view, goal offset and visit
+history. Code handles walls, explored branches and backtracking. **These three
+maps are included in training**: 441 of the 1,322 Maze movement examples come from
+them. See the [data recipe and separate-map results](docs/navigation.md).
 
 Watch all three recordings locally with just Python:
 
@@ -39,51 +55,84 @@ Open **http://localhost:8000**. No model download or GPU needed for playback.
 The two comparison clips use the initial checkpoint; the three-maze clip uses
 the movement-trained checkpoint. Videos are accelerated recordings, not live inference.
 
+## Models
+
+Both exports contain the same trained backbone and candidate head in FP32.
+
+| Model | Runtime | Start here |
+| --- | --- | --- |
+| [gemma-3-270m-jev](https://huggingface.co/bzantium/gemma-3-270m-jev) | Transformers, CPU / CUDA | [Download and run](docs/huggingface.md#transformers) |
+| [gemma-3-270m-jev-mlx](https://huggingface.co/bzantium/gemma-3-270m-jev-mlx) | MLX, Apple Silicon | [Run on a Mac](docs/huggingface.md#mlx) |
+
+Weights are private during review and require Hugging Face access. These are
+candidate-scoring models; use the supplied adapter instead of a chat or text-generation
+pipeline. The weights follow the Gemma terms, separately from the code license.
+
 ## How it works
 
 ```text
-Observation + question + candidates
-                ↓
-       Gemma → scoring head → probabilities → game controller
+State + question + candidate A → Gemma → scalar score A
+State + question + candidate B → Gemma → scalar score B
+                  ...                       ↓
+                                 softmax over candidates
+                                            ↓
+                                 code builds the response
+                                            ↓
+                                      game controller
 ```
 
-[model.py](gemmajev/model.py) adds a shared scoring head to Gemma's final hidden
-states. [train.py](scripts/train.py) trains the backbone and head with Tunix's
-custom-loss interface. The same checkpoint runs through JAX or an MLX export.
+Candidates are processed together in a batch on the same model. There is no
+autoregressive decoding of a JSON answer: [model.py](gemmajev/model.py) scores
+each candidate's final token representation, and
+[interface.py](gemmajev/interface.py) pairs probabilities with candidate names.
+[train.py](scripts/train.py) trains the backbone and head with Tunix's custom
+cross-entropy loss. The controller decides how to turn the response into actions.
 
 ```python
 import json
 from pathlib import Path
-from gemmajev.mlx_backend import MLXGameEngine
+from gemmajev.transformers_backend import TransformersGameEngine
 
-engine = MLXGameEngine("artifacts/maze-expanded-mlx")
-request = json.loads(Path("examples/maze_request.json").read_text())
+engine = TransformersGameEngine("artifacts/gemma-3-270m-jev")
+request = json.loads(Path("examples/navigation_request.json").read_text())
 response = engine.predict(request)
+print(json.dumps(response, indent=2))
 ```
 
-See the [actual request and response](docs/interface.md) and
-[Mac setup](docs/mlx.md). Weights are generated locally and are not bundled.
+After [downloading the model](docs/huggingface.md), this executes inference.
+See [Maze and Doom requests and recorded responses](docs/interface.md), or the
+[Mac setup](docs/mlx.md) for an MLX export.
+Trained [Transformers and MLX weights](docs/huggingface.md) are hosted on Hugging
+Face; they are not stored in this Git repository.
+
+### Relationship to Jev
+
+[Jev](https://docs.typesafe.ai/concepts/system-one) is TypeSafe's System One model
+for fast, typed decisions. This project implements a small game-specific
+candidate scorer inspired by Jev and NanoJev. It uses supervised training, not
+TypeSafe's RLCD, and does not reproduce Jev's proprietary architecture. The
+returned probabilities have not been validated as calibrated confidence.
 
 ## Train and run
 
-Start with [setup and training](docs/training.md), then
-[run the games](docs/demos.md). The recipe prepares NanoJev data, adds local Maze
-examples, and trains Gemma on one GPU. Checkpoints, data and caches stay inside
-this repository.
+Start with [setup and the base checkpoint](docs/training.md), then follow the
+[movement recipe](docs/navigation.md) to reproduce the three-maze model. The
+[game guide](docs/demos.md) covers running and recording both interfaces. Training
+uses one GPU; checkpoints, data and caches stay inside this repository.
 
-The local-safety model reached **80.6% Maze** and **88.1% ViZDoom** validation question
-accuracy. On an M2 Max, MLX FP32 took **54.4 ms** per local observation and completed
-all three fixed mazes. See [measurements and limitations](docs/results.md) for
-sample sizes, controller behavior and timing details.
+| Check | Result | Scope |
+| --- | --- | --- |
+| Maze next direction | 70.4% accuracy | 196 validation questions on four separate maps |
+| ViZDoom action | 90.0% accuracy | 201 validation questions |
+| MLX FP32 inference | 35.1 ms | One movement question, ten warm calls on an M2 Max |
 
-An optional [movement-with-memory recipe](docs/navigation.md) trains Gemma to
-choose a direction at Maze junctions and keeps ViZDoom examples in the training
-mix. Its fitted demonstration maps and separate test maps are reported explicitly.
+Question accuracy and inference timing do not establish navigation quality.
+See [gameplay results and measurement details](docs/results.md).
 
 ## Code
 
 ```text
-gemmajev/      Model, question interface, JAX and MLX inference
+gemmajev/      Model, question interface, JAX, Transformers and MLX inference
 scripts/       Fetch data, prepare inputs, train and evaluate
 examples/      Run games or send a single request
 demos/         Ready-to-watch recordings, no model required

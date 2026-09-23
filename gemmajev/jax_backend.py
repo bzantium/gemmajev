@@ -42,6 +42,11 @@ class GameEngine:
                 manager.close()
 
     def predict(self, request, batch_questions=4, temperature=1.0):
+        """Batch questions and their candidates, then format numeric probabilities.
+
+        Each batch uses one model forward pass. Questions are independent; this
+        does not sample actions or decode JSON tokens from the language model.
+        """
         if not np.isfinite(temperature) or temperature <= 0:
             raise ValueError("Temperature must be positive and finite")
         batch_questions = batch_questions or 4

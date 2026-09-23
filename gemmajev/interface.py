@@ -46,6 +46,11 @@ def encode_games(rows, tokenizer, max_length=768):
 
 
 def format_answer(kind, keys, probabilities):
+    """Build a response dict from scores normalized over the encoded candidates.
+
+    Keep the key order returned by decision_row. The model supplies numbers;
+    Python supplies the field names, and the caller may serialize with json.dumps.
+    """
     values = np.asarray(probabilities, dtype=float)
     if values.shape != (len(keys),) or not np.isfinite(values).all() or (values < 0).any():
         raise ValueError("Invalid candidate probabilities")

@@ -1,9 +1,15 @@
 # Run the trained model on a Mac
 
-The selected Tunix checkpoint runs locally on the Apple M2 Max GPU using MLX.
+These measurements use the `maze-expanded` local-safety checkpoint on an Apple
+M2 Max GPU. They do not measure the movement checkpoint in the three-maze video.
 Use **FP32** by default: it closely matches the original candidate probabilities,
 while FP16 and 8-bit weights offered little additional speed in this measurement.
-No additional training was performed. Presentation videos remain unchanged.
+Export preserves the trained weights; it does not perform additional training.
+
+The latest movement checkpoint is available as a [verified MLX download](huggingface.md#mlx).
+It matches 40 Tunix reference decisions and averages 35.1 ms for one movement
+question on one timed observation. The results below concern four local-safety
+questions per observation, so the two timing numbers describe different workloads.
 
 ## Results
 
@@ -35,7 +41,8 @@ Sequential exploration took 53.2 seconds in FP32 and 48.0 seconds in FP16,
 excluding model loading. Small trajectory differences can follow from different
 floating-point arithmetic. They are not new training gains. The 8-bit version
 was checked on the 40 questions only; it was not selected for full rollouts.
-The presentation's 14.28-second video remains accelerated recorded gameplay.
+The bundled three-maze video uses a different checkpoint and controller. Its
+playback duration is not an inference-time measurement.
 
 ## Run with a prepared Mac environment
 

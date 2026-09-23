@@ -1,10 +1,14 @@
 # Data and training
 
-The selected model is Gemma 3 270M IT with a shared scalar candidate head.
+This guide builds the base local-safety checkpoint with Gemma 3 270M IT with a shared scalar candidate head.
 For each question, the model encodes the state, question and each complete
 candidate separately. The last valid token representation receives a scalar
 score. Masked softmax and question-level cross entropy train the supplied-answer
 distribution. The backbone and head are both trained; this recipe does not use RL.
+
+The three-maze recording uses a continuation of this checkpoint. Follow the
+[movement recipe](navigation.md) after completing this guide. That recipe has a
+different Maze question and includes the demonstration maps in training.
 
 ## Prepare the inputs
 
@@ -35,7 +39,7 @@ source scripts/env.sh
 
 The fetcher pins NanoJev source to commit
 `76fdfc9ecdca45a9bcef17991a07d3041a87685a` and checks the data release manifest.
-Model revisions are pinned in [model_registry.py](../gemmajev/backbones.py).
+Model revisions are pinned in [backbones.py](../gemmajev/backbones.py).
 
 | Dataset | Train | Validation | Test |
 | --- | --- | --- | --- |

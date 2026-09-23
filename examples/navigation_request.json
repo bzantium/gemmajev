@@ -1,0 +1,20 @@
+{
+  "states": [
+    {
+      "id": "gemmajev-demo:50:2026121201:0",
+      "state": "Position: row 31, column 9.\nGoal offset: -30 rows south, -8 columns east.\nPrevious move: none. Current visits: 1.\nLocal map (# wall, . open, A agent, X outside):\n.#.#.\n.#.#.\n.#A#.\n.#.##\n...#.\nnorth: open; visits=0; attempts=0; last=untried.\neast: blocked; visits=0; attempts=0; last=untried.\nsouth: open; visits=0; attempts=0; last=untried.\nwest: blocked; visits=0; attempts=0; last=untried.\nAvailable directions: north, south.",
+      "questions": {
+        "move": {
+          "type": "choice",
+          "instructions": "Choose the next movement direction toward the goal from the available directions. Explore an unvisited passage; backtrack when the current branch is exhausted.",
+          "criteria": {
+            "north": "Move one cell north.",
+            "east": "Move one cell east.",
+            "south": "Move one cell south.",
+            "west": "Move one cell west."
+          }
+        }
+      }
+    }
+  ]
+}

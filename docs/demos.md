@@ -6,7 +6,28 @@ the [README](../README.md) and [training guide](training.md).
 To watch the bundled recordings without installing dependencies, run
 `python3 -m http.server 8000 --directory demos`. The steps below execute the model.
 
-## The two NanoJev examples
+## Three mazes with movement and memory
+
+To reproduce the bundled three-maze recording, complete the
+[movement training recipe](navigation.md), then run:
+
+```bash
+source scripts/env.sh
+.venv/bin/python examples/navigate.py \
+  --model runs/navigation-rehearsal \
+  --cases data/gemmajev-navigation-v1/train-maps.jsonl --scope demo_fit \
+  --output runs/three-mazes-movement
+.venv/bin/python tools/build_maze_triptych.py \
+  --rollout runs/three-mazes-movement --output demo-output-movement
+.venv/bin/python -m http.server 8796 --directory demo-output-movement
+```
+
+These three maps are training examples. The model chooses at junctions; code
+handles walls, explored branches and backtracking. The output records model
+calls separately from forced moves. Use this rollout's summary and server URL
+with the recording command below.
+
+## The two NanoJev comparison examples
 
 ```bash
 source scripts/env.sh
@@ -23,9 +44,10 @@ services. The builder independently checks the environment transitions.
 ViZDoom requires the `games` extra. Default replay fonts use system fallbacks;
 optional font files are not distributed here.
 
-## Three fixed mazes
+## Three mazes with the local-safety model
 
-The seeds were fixed before inference, without selecting successful outcomes:
+This reproduces the original local-safety interface and MLX timing cases, not
+the current bundled three-maze video. The seeds are:
 `2026121201`, `2026121202`, `2026121203`. Each generates a 50×50 loop maze.
 
 ```bash

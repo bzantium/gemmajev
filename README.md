@@ -103,6 +103,7 @@ See [Maze and Doom requests and recorded responses](docs/interface.md), or the
 [Mac setup](docs/mlx.md) for an MLX export.
 Trained [Transformers and MLX weights](docs/huggingface.md) are hosted on Hugging
 Face; they are not stored in this Git repository.
+For GPU serving, use the [vLLM pooling server and game client](docs/vllm.md).
 
 ### Relationship to Jev
 

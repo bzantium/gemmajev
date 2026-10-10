@@ -36,5 +36,8 @@ class ChatTokenizer:
         if not add_special_tokens:
             return self.tokenizer.encode(text, add_special_tokens=False)
         return self.tokenizer.apply_chat_template(
-            [{"role": "user", "content": text}], tokenize=True, add_generation_prompt=True
+            [{"role": "user", "content": text}],
+            tokenize=True,
+            add_generation_prompt=True,
+            return_dict=False,
         )

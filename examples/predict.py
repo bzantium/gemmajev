@@ -7,15 +7,30 @@ from pathlib import Path
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--backend", choices=("jax", "mlx", "transformers"), required=True)
-    parser.add_argument("--model", required=True, help="Training run (JAX) or exported model (MLX)")
+    parser.add_argument("--backend", choices=("jax", "mlx", "transformers", "vllm"), required=True)
+    parser.add_argument(
+        "--model", required=True, help="Training run (JAX) or exported model directory"
+    )
     parser.add_argument("--request", default="examples/maze_request.json")
     parser.add_argument("--device", default="cpu", help="Transformers device, e.g. cpu or cuda")
     parser.add_argument("--threads", type=int, default=8, help="Transformers CPU thread count")
+    parser.add_argument("--base-url", default="http://127.0.0.1:8000", help="vLLM server URL")
+    parser.add_argument("--served-model", default="gemmajev", help="vLLM served model name")
     args = parser.parse_args()
     if args.threads < 1:
         parser.error("--threads must be positive")
-    if args.backend == "mlx":
+    if args.backend == "vllm":
+        import os
+
+        from gemmajev.vllm_backend import VLLMGameEngine
+
+        engine = VLLMGameEngine(
+            args.model,
+            base_url=args.base_url,
+            model=args.served_model,
+            api_key=os.environ.get("VLLM_API_KEY"),
+        )
+    elif args.backend == "mlx":
         from gemmajev.mlx_backend import MLXGameEngine
 
         engine = MLXGameEngine(args.model)
